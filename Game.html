@@ -10,6 +10,9 @@
             canvas = document.getElementById("canvas");
             canvasContext = canvas.getContext("2d");
             
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
+           
             setInterval(mainloop, 1000 / 50);
         }
 
@@ -27,6 +30,16 @@
         const PLAYER2_WIDTH = 200;
         const PLAYER2_HEIGHT = 200;
 
+        const D_KEY = 68;
+        const A_KEY = 65;
+        const W_KEY = 87;
+        const SPACE_KEY = 32;
+        
+        const RIGHT_KEY = 39;
+        const LEFT_KEY = 37;
+        const UP_KEY = 38;
+        const DOWN_KEY = 40;
+        
         var dKeyPressed = false;
         var aKeyPressed = false;
         var wKeyPressed = false;
