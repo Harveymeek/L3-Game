@@ -20,6 +20,7 @@
         var player1Ypos = 730;
         var player1Xspeed = 12;
         var player1Yspeed = 5;
+        const PLAYER1_SIZE = 200;
         const PLAYER1_WIDTH = 200;
         const PLAYER1_HEIGHT = 200;
 
@@ -71,7 +72,7 @@
                 aKeyPressed = true;
             }
             if (evt.keyCode == W_KEY) {
-                aKeyPressed = true;
+                wKeyPressed = true;
             }
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPressed = true;
@@ -99,7 +100,7 @@
                 aKeyPressed = false;
             }
             if (evt.keyCode == W_KEY) {
-                aKeyPressed = false;
+                wKeyPressed = false;
             }
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPressed = false;
@@ -126,6 +127,21 @@
             }
             if (aKeyPressed && player1Xpos > canvas.width * .001)  {
                 player1Xpos -= player1Xspeed
+            }
+            if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .99)  {
+                player1Yspeed = -50;
+            }
+
+            player1Ypos += player1Yspeed;
+            player1Yspeed += 3;
+
+            if (player1Ypos <= 0) {
+                player1Ypos = 0;
+                player1Yspeed = 0.5;
+            }
+
+            if (player1Ypos + PLAYER1_HEIGHT >= canvas.height) {
+                player1Ypos = canvas.height - PLAYER1_HEIGHT;
             }
             
 
