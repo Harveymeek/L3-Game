@@ -6,13 +6,13 @@
     <script>
         var canvas, canvasContext, imageAssets;
 
-        window.onload = function() {
+        window.onload = function () {
             canvas = document.getElementById("canvas");
             canvasContext = canvas.getContext("2d");
-            
+
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
-           
+
             setInterval(mainloop, 1000 / 50);
         }
 
@@ -34,12 +34,12 @@
         const A_KEY = 65;
         const W_KEY = 87;
         const SPACE_KEY = 32;
-        
+
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
         const UP_KEY = 38;
         const DOWN_KEY = 40;
-        
+
         var dKeyPressed = false;
         var aKeyPressed = false;
         var wKeyPressed = false;
@@ -50,13 +50,13 @@
         var upKeyPressed = false;
         var downKeyPressed = false;
 
-        
+
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
             colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
             colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
         }
-        
+
 
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
@@ -67,44 +67,56 @@
             if (evt.keyCode == D_KEY) {
                 dKeyPressed = true;
             }
-
             if (evt.keyCode == A_KEY) {
                 aKeyPressed = true;
             }
-
             if (evt.keyCode == W_KEY) {
                 aKeyPressed = true;
             }
-
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPressed = true;
             }
-
             if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = true;
             }
-
             if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = true;
             }
-
             if (evt.keyCode == UP_KEY) {
                 upKeyPressed = true;
             }
-
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = true;
             }
-            
+
         }
 
+        function keyReleased(evt) {
+            if (evt.keyCode == D_KEY) {
+                dKeyPressed = false;
+            }
+            if (evt.keyCode == A_KEY) {
+                aKeyPressed = false;
+            }
+            if (evt.keyCode == W_KEY) {
+                aKeyPressed = false;
+            }
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPressed = false;
+            }
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = false;
+            }
+            if (evt.keyCode == LEFT_KEY) {
+                leftKeyPressed = false;
+            }
+            if (evt.keyCode == UP_KEY) {
+                upKeyPressed = false;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPressed = false;
+            }
 
-
-
-
-
-
-
-
+        }
     </script>
 </body>
