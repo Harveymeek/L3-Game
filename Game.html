@@ -30,6 +30,16 @@
         const PLAYER2_WIDTH = 200;
         const PLAYER2_HEIGHT = 200;
 
+        const D_KEY = 68;
+        const A_KEY = 65;
+        const W_KEY = 87;
+        const SPACE_KEY = 32;
+        
+        const RIGHT_KEY = 39;
+        const LEFT_KEY = 37;
+        const UP_KEY = 38;
+        const DOWN_KEY = 40;
+        
         var dKeyPressed = false;
         var aKeyPressed = false;
         var wKeyPressed = false;
@@ -48,14 +58,44 @@
         }
         
 
-
-
-
-
-
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
+        }
+
+        function keyPressed(evt) {
+            if (evt.keyCode == D_KEY) {
+                dKeyPressed = true;
+            }
+
+            if (evt.keyCode == A_KEY) {
+                aKeyPressed = true;
+            }
+
+            if (evt.keyCode == W_KEY) {
+                aKeyPressed = true;
+            }
+
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPressed = true;
+            }
+
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = true;
+            }
+
+            if (evt.keyCode == LEFT_KEY) {
+                leftKeyPressed = true;
+            }
+
+            if (evt.keyCode == UP_KEY) {
+                upKeyPressed = true;
+            }
+
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPressed = true;
+            }
+            
         }
 
 
