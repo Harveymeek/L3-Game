@@ -7,13 +7,14 @@
         var canvas, canvasContext, imageAssets;
 
         window.onload = function() {
-            canvas = document.createElement("canvas");
+            canvas = document.getElementById("canvas");
             canvasContext = canvas.getContext("2d");
             
+            setInterval(mainloop, 1000 / 50);
         }
 
-        var player1Xpos = '';
-        var player1Ypos = '';
+        var player1Xpos = 300;
+        var player1Ypos = 30;
         var player1Xspeed = 12;
         var player1Yspeed = 5;
         const PLAYER1_WIDTH = 200;
@@ -27,15 +28,21 @@
         const PLAYER2_HEIGHT = 200;
 
         
+        function mainloop() {
+            colorRect(0, 0, canvas.width, canvas.height, 'black');
+            colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
+        
+        }
         
 
 
 
 
 
+
         function colorRect(x, y, w, h, c) {
-            canvasContext.fillstyle = c;
-            canavsContext.fillRect(x, y, w, h);
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
         }
 
 
