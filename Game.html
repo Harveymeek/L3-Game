@@ -50,16 +50,13 @@
         var upKeyPressed = false;
         var downKeyPressed = false;
 
-
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
             colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
             colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
         
             PlayerMove()
-
         }
-
 
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
@@ -127,6 +124,12 @@
             if (dKeyPressed && player1Xpos < canvas.width * .979)  {
                 player1Xpos += player1Xspeed
             }
+            if (aKeyPressed && player1Xpos > canvas.width * .001)  {
+                player1Xpos -= player1Xspeed
+            }
+            
+
+            
         }
     </script>
 </body>
