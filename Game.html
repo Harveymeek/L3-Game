@@ -143,6 +143,9 @@
             if (rightKeyPressed && player2Xpos < canvas.width * .89) {
                 player2Xpos += player2Xspeed
             }
+            if (leftKeyPressed && player2Xpos > canvas.width * .001) {
+                player2Xpos -= player2Xspeed
+            }
             
         }
     </script>
