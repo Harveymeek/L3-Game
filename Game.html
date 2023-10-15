@@ -146,7 +146,18 @@
             if (leftKeyPressed && player2Xpos > canvas.width * .001) {
                 player2Xpos -= player2Xspeed
             }
-            
+            if (upKeyPressed && player2Ypos + PLAYER1_HEIGHT > canvas.height * .99) {
+                player2Yspeed = -50;
+            }
+            player2Ypos += player2Yspeed;
+            player2Yspeed += 3;
+            if (player2Ypos <= 0) {
+                player2Ypos = 0;
+                player2Yspeed = 0.5;
+            }
+            if (player2Ypos + PLAYER1_HEIGHT >= canvas.height) {
+                player2Ypos = canvas.height - PLAYER1_HEIGHT;
+            }
         }
     </script>
 </body>
