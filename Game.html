@@ -1,7 +1,7 @@
 <!doctype html>
 
 <body>
-    <canvas id="canvas" width="1900" height="930"></canvas>
+    <canvas id="canvas" width="1850" height="900"></canvas>
 
     <script>
         var canvas, canvasContext, imageAssets;
@@ -9,6 +9,7 @@
         window.onload = function () {
             canvas = document.getElementById("canvas");
             canvasContext = canvas.getContext("2d");
+            imageAssets = loadImgAssets();
 
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
@@ -51,17 +52,29 @@
         var upKeyPressed = false;
         var downKeyPressed = false;
 
+        var background = new Image();
+        background.src = "images/bg1.png";
+
         function mainloop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'black');
+            drawImg(background, 0, 0, canvas.width, canvas.height, 'black');
             colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
             colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
-        
+
             PlayerMove()
+        }
+
+        function loadImgAssets() {
+            imgs = {};
+            return imgs;
         }
 
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
+        }
+
+        function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h);
         }
 
         function keyPressed(evt) {
@@ -89,7 +102,6 @@
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = true;
             }
-
         }
 
         function keyReleased(evt) {
@@ -121,31 +133,44 @@
         }
 
         function PlayerMove() {
-            
-            if (dKeyPressed && player1Xpos < canvas.width * .979)  {
+
+            if (dKeyPressed && player1Xpos < canvas.width * .895) {
                 player1Xpos += player1Xspeed
             }
-            if (aKeyPressed && player1Xpos > canvas.width * .001)  {
+            if (aKeyPressed && player1Xpos > canvas.width * .001) {
                 player1Xpos -= player1Xspeed
             }
-            if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .99)  {
+            if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .965) {
                 player1Yspeed = -50;
             }
-
             player1Ypos += player1Yspeed;
             player1Yspeed += 3;
-
             if (player1Ypos <= 0) {
                 player1Ypos = 0;
                 player1Yspeed = 0.5;
             }
-
-            if (player1Ypos + PLAYER1_HEIGHT >= canvas.height) {
-                player1Ypos = canvas.height - PLAYER1_HEIGHT;
+            if (player1Ypos + PLAYER1_HEIGHT >= canvas.height * 0.966) {
+                player1Ypos = canvas.height * 0.966 - PLAYER1_HEIGHT;
             }
-            
 
-            
+            if (rightKeyPressed && player2Xpos < canvas.width * .89) {
+                player2Xpos += player2Xspeed
+            }
+            if (leftKeyPressed && player2Xpos > canvas.width * .001) {
+                player2Xpos -= player2Xspeed
+            }
+            if (upKeyPressed && player2Ypos + PLAYER1_HEIGHT > canvas.height * .99) {
+                player2Yspeed = -50;
+            }
+            player2Ypos += player2Yspeed;
+            player2Yspeed += 3;
+            if (player2Ypos <= 0) {
+                player2Ypos = 0;
+                player2Yspeed = 0.5;
+            }
+            if (player2Ypos + PLAYER1_HEIGHT >= canvas.height) {
+                player2Ypos = canvas.height - PLAYER1_HEIGHT;
+            }
         }
     </script>
 </body>
