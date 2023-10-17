@@ -1,7 +1,7 @@
 <!doctype html>
 
 <body>
-    <canvas id="canvas" width="1900" height="930"></canvas>
+    <canvas id="canvas" width="1850" height="900"></canvas>
 
     <script>
         var canvas, canvasContext, imageAssets;
@@ -31,6 +31,11 @@
         var player2Yspeed = 5;
         const PLAYER2_WIDTH = 200;
         const PLAYER2_HEIGHT = 200;
+
+        var attack1Xpos = '';
+        var attack1Ypos = '';
+        var ATTACK1_WIDTH = '';
+        var ATTACK1_HEIGHT = '';
 
         const D_KEY = 68;
         const A_KEY = 65;
@@ -65,7 +70,6 @@
 
         function loadImgAssets() {
             imgs = {};
-
             return imgs;
         }
 
@@ -141,7 +145,7 @@
             if (aKeyPressed && player1Xpos > canvas.width * .001) {
                 player1Xpos -= player1Xspeed
             }
-            if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .99) {
+            if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .965) {
                 player1Yspeed = -50;
             }
             player1Ypos += player1Yspeed;
@@ -150,8 +154,8 @@
                 player1Ypos = 0;
                 player1Yspeed = 0.5;
             }
-            if (player1Ypos + PLAYER1_HEIGHT >= canvas.height) {
-                player1Ypos = canvas.height - PLAYER1_HEIGHT;
+            if (player1Ypos + PLAYER1_HEIGHT >= canvas.height * .966) {
+                player1Ypos = canvas.height * .966 - PLAYER1_HEIGHT;
             }
 
             if (rightKeyPressed && player2Xpos < canvas.width * .89) {
@@ -160,7 +164,7 @@
             if (leftKeyPressed && player2Xpos > canvas.width * .001) {
                 player2Xpos -= player2Xspeed
             }
-            if (upKeyPressed && player2Ypos + PLAYER1_HEIGHT > canvas.height * .99) {
+            if (upKeyPressed && player2Ypos + PLAYER1_HEIGHT > canvas.height * .965) {
                 player2Yspeed = -50;
             }
             player2Ypos += player2Yspeed;
@@ -169,8 +173,8 @@
                 player2Ypos = 0;
                 player2Yspeed = 0.5;
             }
-            if (player2Ypos + PLAYER1_HEIGHT >= canvas.height) {
-                player2Ypos = canvas.height - PLAYER1_HEIGHT;
+            if (player2Ypos + PLAYER1_HEIGHT >= canvas.height * .966) {
+                player2Ypos = canvas.height *.966  - PLAYER1_HEIGHT;
             }
         }
     </script>
