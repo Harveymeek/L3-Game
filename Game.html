@@ -11,6 +11,7 @@
             canvasContext = canvas.getContext("2d");
             imageAssets = loadImgAssets();
 
+            document.body.style.background = 'black';
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
 
@@ -73,6 +74,7 @@
             colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
             
             PlayerMove()
+            AttackAppear()
         }
 
         function loadImgAssets() {
@@ -141,7 +143,26 @@
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = false;
             }
+        }
 
+
+        
+
+        function AttackAppear() { // makes the sword appear infront of the player when backspace keypressed
+            if (spaceKeyPressed) {
+                attack1Xpos = player1Xpos + PLAYER1_WIDTH;
+                attack1Ypos = player1Ypos - PLAYER1_HEIGHT * 0.3;
+                ATTACK1_WIDTH = 170;
+                ATTACK1_HEIGHT = 100;
+                // variables for sword when backspace key is pressed
+
+            } else {
+                ATTACK1_WIDTH = 0;
+                ATTACK1_HEIGHT = 0;
+                attack1Ypos = canvas.height * 0.01;
+                // variables for sword when backspace key is released
+
+            }
         }
 
         function PlayerMove() {
