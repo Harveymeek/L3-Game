@@ -38,10 +38,15 @@
         var ATTACK1_WIDTH = 170;
         var ATTACK1_HEIGHT = 100;
 
-        var attack2Xpos = player2Xpos - PLAYER2_WIDTH * 0.85;
-        var attack2Ypos = player2Ypos - PLAYER2_HEIGHT * 0.3;
+        var attack2Xpos = '';
+        var attack2Ypos = '';
         var ATTACK2_WIDTH = 170;
         var ATTACK2_HEIGHT = 100;
+
+        var health1Xpos = 50;
+        var health1Ypos = 20;
+        var HEALTH1_WIDTH = 500;
+        var HEALTH1_HEIGHT = 100;
 
         const D_KEY = 68;
         const A_KEY = 65;
@@ -72,7 +77,7 @@
             colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
             colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
             colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
-            
+            colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'lightblue');
             PlayerMove()
             AttackAppear()
         }
