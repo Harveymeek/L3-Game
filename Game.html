@@ -50,12 +50,12 @@
 
         var healthloss1Xpos = 50;
         var healthloss1Ypos = 50;
-        var HEALTHLOSS1_WIDTH = 450;
+        var HEALTHLOSS1_WIDTH = 0;
         var HEALTHLOSS1_HEIGHT = 75;
 
         var health2Xpos = 1000;
         var health2Ypos = 50;
-        var HEALTH2_WIDTH = 350;
+        var HEALTH2_WIDTH = 800;
         var HEALTH2_HEIGHT = 75;
 
         var healthloss2Xpos = 1000;
@@ -190,6 +190,15 @@
                 ATTACK2_HEIGHT = 0;
                 attack2Ypos = canvas.height * 0.01;
             }
+        
+            if (player2Xpos < attack1Xpos + ATTACK1_WIDTH &&
+                player2Xpos + PLAYER2_WIDTH > attack1Xpos &&
+                player2Ypos < attack1Ypos + ATTACK1_HEIGHT &&
+                player2Ypos + PLAYER2_HEIGHT > attack1Ypos) { // when sword hits boss
+                console.log("hit");
+                HEALTH2_WIDTH--
+            }
+        
         }
 
         function PlayerMove() {
