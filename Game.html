@@ -116,11 +116,15 @@
         
             } else {
                 gameRun = false;
-                colorText(0, 0, canvas.width, canvas.height, 'black');
-
+                colorRect(0, 0, canvas.width, canvas.height, 'black');
             }
-        
-        
+
+            if (point1 == 2) {
+            gameRun = false;
+            }
+            if (point2 == 2) {
+            gameRun = false;
+            }
         }
 
         function loadImgAssets() {
