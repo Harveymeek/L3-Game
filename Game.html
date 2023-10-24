@@ -44,9 +44,24 @@
         var ATTACK2_HEIGHT = 100;
 
         var health1Xpos = 50;
-        var health1Ypos = 20;
-        var HEALTH1_WIDTH = 500;
-        var HEALTH1_HEIGHT = 100;
+        var health1Ypos = 50;
+        var HEALTH1_WIDTH = 800;
+        var HEALTH1_HEIGHT = 75;
+
+        var healthloss1Xpos = 50;
+        var healthloss1Ypos = 50;
+        var HEALTHLOSS1_WIDTH = 450;
+        var HEALTHLOSS1_HEIGHT = 75;
+
+        var health2Xpos = 1000;
+        var health2Ypos = 50;
+        var HEALTH2_WIDTH = 350;
+        var HEALTH2_HEIGHT = 75;
+
+        var healthloss2Xpos = 1000;
+        var healthloss2Ypos = 50;
+        var HEALTHLOSS2_WIDTH = 800;
+        var HEALTHLOSS2_HEIGHT = 75;
 
         const D_KEY = 68;
         const A_KEY = 65;
@@ -78,6 +93,9 @@
             colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
             colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
             colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'lightblue');
+            colorRect(healthloss1Xpos, healthloss1Ypos, HEALTHLOSS1_WIDTH, HEALTHLOSS1_HEIGHT, 'red');
+            colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
+            colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lightblue');
             PlayerMove()
             AttackAppear()
         }
