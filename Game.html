@@ -96,7 +96,6 @@
         function mainloop() {
             if (gameRun) {
 
-            
             drawImg(background, 0, 0, canvas.width, canvas.height);
             colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
             colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
@@ -124,6 +123,15 @@
             }
             if (point2 == 2) {
             gameRun = false;
+            }
+
+            if (round == 2)  {
+                var background2 = new Image();
+                background.src = "images/bg2.png";
+            }
+            if (round == 3)  {
+                var background2 = new Image();
+                background.src = "images/bg3.png";
             }
         }
 
