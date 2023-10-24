@@ -86,6 +86,8 @@
         var background = new Image();
         background.src = "images/bg1.png";
 
+        var round = 1;
+
         function mainloop() {
             drawImg(background, 0, 0, canvas.width, canvas.height, 'black');
             colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
@@ -96,6 +98,9 @@
             colorRect(healthloss1Xpos, healthloss1Ypos, HEALTHLOSS1_WIDTH, HEALTHLOSS1_HEIGHT, 'red');
             colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
             colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lime');
+            colorText('Round', canvas.width / 2.174, canvas.height / 13, '50px Arial',
+                'white');
+            colorText(round, canvas.width / 2.04, canvas.height / 6.5, '70px Arial', 'white');
             PlayerMove()
             AttackAppear()
         }
@@ -112,7 +117,7 @@
 
         function colorText(msg, x, y, f, c) {
             canvasContext.font = f;
-            canvasContext.fillstyle = c;
+            canvasContext.fillStyle = c;
             canvasContext.fillText(msg, x, y);
         }
 
@@ -185,7 +190,7 @@
                 ATTACK1_HEIGHT = 0;
                 attack1Ypos = canvas.height * 0.01;
             }
-            
+
             if (downKeyPressed) {
                 attack2Xpos = player2Xpos - PLAYER2_WIDTH * 0.85;
                 attack2Ypos = player2Ypos;
@@ -196,16 +201,18 @@
                 ATTACK2_HEIGHT = 0;
                 attack2Ypos = canvas.height * 0.01;
             }
-        
+
             if (player2Xpos < attack1Xpos + ATTACK1_WIDTH &&
                 player2Xpos + PLAYER2_WIDTH > attack1Xpos &&
                 player2Ypos < attack1Ypos + ATTACK1_HEIGHT &&
                 player2Ypos + PLAYER2_HEIGHT > attack1Ypos && HEALTH2_WIDTH > 0) { // when sword hits boss
                 console.log("hit");
-                HEALTH2_WIDTH--
+                HEALTH2_WIDTH--;
             }
             if (HEALTH2_WIDTH <= 0) {
                 console.log("dead");
+                HEALTH2_WIDTH = 750;
+                round++;
             }
 
             if (player1Xpos < attack2Xpos + ATTACK2_WIDTH &&
@@ -217,6 +224,8 @@
             }
             if (HEALTHLOSS1_WIDTH >= 750) {
                 console.log("dead");
+                HEALTHLOSS1_WIDTH = 0;
+                round++;
             }
         }
 
@@ -256,7 +265,7 @@
                 player2Yspeed = 0.5;
             }
             if (player2Ypos + PLAYER1_HEIGHT >= canvas.height * .966) {
-                player2Ypos = canvas.height *.966  - PLAYER1_HEIGHT;
+                player2Ypos = canvas.height * .966 - PLAYER1_HEIGHT;
             }
         }
     </script>
