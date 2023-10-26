@@ -11,6 +11,7 @@
             canvasContext = canvas.getContext("2d");
             imageAssets = loadImgAssets();
 
+            document.body.style.background = 'black';
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
 
@@ -31,6 +32,41 @@
         var player2Yspeed = 5;
         const PLAYER2_WIDTH = 200;
         const PLAYER2_HEIGHT = 200;
+
+        var attack1Xpos = '';
+        var attack1Ypos = '';
+        var ATTACK1_WIDTH = 170;
+        var ATTACK1_HEIGHT = 100;
+
+        var attack2Xpos = '';
+        var attack2Ypos = '';
+        var ATTACK2_WIDTH = 170;
+        var ATTACK2_HEIGHT = 100;
+
+        var health1Xpos = 50;
+        var health1Ypos = 50;
+        var HEALTH1_WIDTH = 750;
+        var HEALTH1_HEIGHT = 75;
+
+        var healthloss1Xpos = 50;
+        var healthloss1Ypos = 50;
+        var HEALTHLOSS1_WIDTH = 0;
+        var HEALTHLOSS1_HEIGHT = 75;
+
+        var health2Xpos = 1050;
+        var health2Ypos = 50;
+        var HEALTH2_WIDTH = 750;
+        var HEALTH2_HEIGHT = 75;
+
+        var healthloss2Xpos = 1050;
+        var healthloss2Ypos = 50;
+        var HEALTHLOSS2_WIDTH = 750;
+        var HEALTHLOSS2_HEIGHT = 75;
+
+        var centerboxXpos = health1Xpos + HEALTH1_WIDTH;
+        var centerboxYpos = 14;
+        var CENTERBOX_WIDTH = 250;
+        var CENTERBOX_HEIGHT = 150;
 
         const D_KEY = 68;
         const A_KEY = 65;
@@ -55,12 +91,54 @@
         var background = new Image();
         background.src = "images/bg1.png";
 
-        function mainloop() {
-            drawImg(background, 0, 0, canvas.width, canvas.height, 'black');
-            colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
-            colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
+        var round = 1;
 
-            PlayerMove()
+        var point1 = 0;
+        var point2 = 0;
+
+        var gameRun = true;
+
+        function mainloop() {
+            if (gameRun) {
+
+                drawImg(background, 0, 0, canvas.width, canvas.height);
+                colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
+                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
+                colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
+                colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
+                colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'lime');
+                colorRect(healthloss1Xpos, healthloss1Ypos, HEALTHLOSS1_WIDTH, HEALTHLOSS1_HEIGHT, 'red');
+                colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
+                colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lime');
+                colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, CENTERBOX_HEIGHT, 'grey');
+                colorText('Round', canvas.width / 2.174, canvas.height / 13, '50px Arial',
+                    'white');
+                colorText(round, canvas.width / 2.04, canvas.height / 6.5, '70px Arial', 'white');
+                colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial', 'white');
+                colorText('points: ' + point2, canvas.width / 1.15, canvas.height / 5, '50px Arial', 'white');
+                PlayerMove()
+                AttackAppear()
+
+            } else {
+                gameRun = false;
+                colorRect(0, 0, canvas.width, canvas.height, 'black');
+            }
+
+            if (point1 == 2) {
+                gameRun = false;
+            }
+            if (point2 == 2) {
+                gameRun = false;
+            }
+
+            if (round == 2) {
+                var background2 = new Image();
+                background.src = "images/bg2.png";
+            }
+            if (round == 3) {
+                var background2 = new Image();
+                background.src = "images/bg3.png";
+            }
         }
 
         function loadImgAssets() {
@@ -71,6 +149,12 @@
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
+        }
+
+        function colorText(msg, x, y, f, c) {
+            canvasContext.font = f;
+            canvasContext.fillStyle = c;
+            canvasContext.fillText(msg, x, y);
         }
 
         function drawImg(src, x, y, w, h) {
@@ -129,48 +213,105 @@
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = false;
             }
+        }
 
+        function AttackAppear() {
+            if (spaceKeyPressed) {
+                attack1Xpos = player1Xpos + PLAYER1_WIDTH;
+                attack1Ypos = player1Ypos;
+                ATTACK1_WIDTH = 170;
+                ATTACK1_HEIGHT = 100;
+            } else {
+                ATTACK1_WIDTH = 0;
+                ATTACK1_HEIGHT = 0;
+                attack1Ypos = canvas.height * 0.01;
+            }
+
+            if (downKeyPressed) {
+                attack2Xpos = player2Xpos - PLAYER2_WIDTH * 0.85;
+                attack2Ypos = player2Ypos;
+                ATTACK2_WIDTH = 170;
+                ATTACK2_HEIGHT = 100;
+            } else {
+                ATTACK2_WIDTH = 0;
+                ATTACK2_HEIGHT = 0;
+                attack2Ypos = canvas.height * 0.01;
+            }
+
+            if (player2Xpos < attack1Xpos + ATTACK1_WIDTH &&
+                player2Xpos + PLAYER2_WIDTH > attack1Xpos &&
+                player2Ypos < attack1Ypos + ATTACK1_HEIGHT &&
+                player2Ypos + PLAYER2_HEIGHT > attack1Ypos && HEALTH2_WIDTH > 0) { // when sword hits boss
+                console.log("hit");
+                HEALTH2_WIDTH--;
+            }
+            if (HEALTH2_WIDTH <= 0) {
+                console.log("dead");
+                HEALTH2_WIDTH = 750;
+                HEALTHLOSS1_WIDTH = 0;
+                round++;
+                point1++;
+                player1Xpos = 300;
+                player2Xpos = 1400;
+            }
+
+            if (player1Xpos < attack2Xpos + ATTACK2_WIDTH &&
+                player1Xpos + PLAYER1_WIDTH > attack2Xpos &&
+                player1Ypos < attack2Ypos + ATTACK2_HEIGHT &&
+                player1Ypos + PLAYER1_HEIGHT > attack2Ypos && HEALTHLOSS1_WIDTH < 750) { // when sword hits boss
+                console.log("hit");
+                HEALTHLOSS1_WIDTH++
+            }
+            if (HEALTHLOSS1_WIDTH >= 750) {
+                console.log("dead");
+                HEALTHLOSS1_WIDTH = 0;
+                HEALTH2_WIDTH = 750;
+                round++;
+                point2++;
+                player1Xpos = 300;
+                player2Xpos = 1400;
+            }
         }
 
         function PlayerMove() {
-
             if (dKeyPressed && player1Xpos < canvas.width * .895) {
                 player1Xpos += player1Xspeed
             }
             if (aKeyPressed && player1Xpos > canvas.width * .001) {
                 player1Xpos -= player1Xspeed
             }
-            if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .965) {
-                player1Yspeed = -50;
-            }
             player1Ypos += player1Yspeed;
-            player1Yspeed += 3;
-            if (player1Ypos <= 0) {
-                player1Ypos = 0;
-                player1Yspeed = 0.5;
+                player1Yspeed += 3;
+                if (player1Ypos <= 0) {
+                    player1Ypos = 0;
+                    player1Yspeed = 0.5;
+                }
+            if (round == 1) {
+                if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .966) {
+                    player1Yspeed = -50;
+                }
+                if (player1Ypos + PLAYER1_HEIGHT >= canvas.height * .966) {
+                    player1Ypos = canvas.height * .966 - PLAYER1_HEIGHT;
+                }
             }
-            if (player1Ypos + PLAYER1_HEIGHT >= canvas.height * 0.966) {
-                player1Ypos = canvas.height * 0.966 - PLAYER1_HEIGHT;
+            if (round == 2) {
+                if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .893) {
+                    player1Yspeed = -50;
+                }
+                if (player1Ypos + PLAYER1_HEIGHT >= canvas.height * .893) {
+                    player1Ypos = canvas.height * .893 - PLAYER1_HEIGHT;
+                }
+            }
+            if (round == 3) {
+                if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .78) {
+                    player1Yspeed = -50;
+                }
+                if (player1Ypos + PLAYER1_HEIGHT >= canvas.height * .78) {
+                    player1Ypos = canvas.height * .78 - PLAYER1_HEIGHT;
+                }
             }
 
-            if (rightKeyPressed && player2Xpos < canvas.width * .89) {
-                player2Xpos += player2Xspeed
-            }
-            if (leftKeyPressed && player2Xpos > canvas.width * .001) {
-                player2Xpos -= player2Xspeed
-            }
-            if (upKeyPressed && player2Ypos + PLAYER1_HEIGHT > canvas.height * .99) {
-                player2Yspeed = -50;
-            }
-            player2Ypos += player2Yspeed;
-            player2Yspeed += 3;
-            if (player2Ypos <= 0) {
-                player2Ypos = 0;
-                player2Yspeed = 0.5;
-            }
-            if (player2Ypos + PLAYER1_HEIGHT >= canvas.height) {
-                player2Ypos = canvas.height - PLAYER1_HEIGHT;
-            }
+            
         }
     </script>
 </body>
