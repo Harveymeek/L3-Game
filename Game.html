@@ -102,10 +102,6 @@
             if (gameRun) {
 
                 drawImg(background, 0, 0, canvas.width, canvas.height);
-                colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
-                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
-                colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
-                colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
                 colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'lime');
                 colorRect(healthloss1Xpos, healthloss1Ypos, HEALTHLOSS1_WIDTH, HEALTHLOSS1_HEIGHT, 'red');
                 colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
@@ -116,6 +112,11 @@
                 colorText(round, canvas.width / 2.04, canvas.height / 6.5, '70px Arial', 'white');
                 colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial', 'white');
                 colorText('points: ' + point2, canvas.width / 1.15, canvas.height / 5, '50px Arial', 'white');
+                colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
+                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
+                colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
+                colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
+
                 PlayerMove()
                 AttackAppear()
 
@@ -282,11 +283,11 @@
                 player1Xpos -= player1Xspeed
             }
             player1Ypos += player1Yspeed;
-                player1Yspeed += 3;
-                if (player1Ypos <= 0) {
-                    player1Ypos = 0;
-                    player1Yspeed = 0.5;
-                }
+            player1Yspeed += 3;
+            if (player1Ypos <= 0) {
+                player1Ypos = 0;
+                player1Yspeed = 0.5;
+            }
             if (round == 1) {
                 if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .966) {
                     player1Yspeed = -50;
@@ -319,11 +320,11 @@
                 player2Xpos -= player2Xspeed
             }
             player2Ypos += player2Yspeed;
-                player2Yspeed += 3;
-                if (player2Ypos <= 0) {
-                    player2Ypos = 0;
-                    player2Yspeed = 0.5;
-                }
+            player2Yspeed += 3;
+            if (player2Ypos <= 0) {
+                player2Ypos = 0;
+                player2Yspeed = 0.5;
+            }
             if (round == 1) {
                 if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .966) {
                     player2Yspeed = -50;
