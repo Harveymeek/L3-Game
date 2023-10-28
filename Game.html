@@ -93,7 +93,7 @@
 
         var round = 1;
 
-        var point1 = 1;
+        var point1 = 0;
         var point2 = 0;
 
         var winner = '';
@@ -125,8 +125,14 @@
                 gameRun = false;
                 colorText(winner + ' wins', canvas.width / 2.39, canvas.height / 2, '50px Arial',
                     'white');
+                if (winner == 'Player 1') {
+                    colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
+                }
+                if (winner == 'Player 2') {
+                    colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'red');
+                }
             }
-
+            
             if (point1 == 2) {
                 winner = 'Player 1'
                 gameRun = false;
@@ -167,8 +173,6 @@
         }
 
         function keyPressed(evt) {
-
-
             if (evt.keyCode == D_KEY) {
                 dKeyPressed = true;
             }
@@ -252,13 +256,13 @@
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
                 ATTACK2_HEIGHT = 100;
-            
+
             } else if (downKeyPressed && player2Xpos < player1Xpos) {
                 attack2Xpos = player2Xpos + PLAYER2_WIDTH;
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
                 ATTACK2_HEIGHT = 100;
-           
+
             } else {
                 ATTACK2_WIDTH = 0;
                 ATTACK2_HEIGHT = 0;
@@ -270,9 +274,9 @@
                 player2Ypos < attack1Ypos + ATTACK1_HEIGHT &&
                 player2Ypos + PLAYER2_HEIGHT > attack1Ypos && HEALTH2_WIDTH > 0) { // when sword hits boss
                 console.log("hit");
-                HEALTH2_WIDTH --;
+                HEALTH2_WIDTH -= 10
             }
-            if (HEALTH2_WIDTH <= 0) {
+            if (HEALTH2_WIDTH <= 0 && point1 < 2) {
                 console.log("dead");
                 HEALTH2_WIDTH = 750;
                 HEALTHLOSS1_WIDTH = 0;
@@ -287,9 +291,9 @@
                 player1Ypos < attack2Ypos + ATTACK2_HEIGHT &&
                 player1Ypos + PLAYER1_HEIGHT > attack2Ypos && HEALTHLOSS1_WIDTH < 750) { // when sword hits boss
                 console.log("hit");
-                HEALTHLOSS1_WIDTH++
+                HEALTHLOSS1_WIDTH += 10
             }
-            if (HEALTHLOSS1_WIDTH >= 750) {
+            if (HEALTHLOSS1_WIDTH >= 750 && point2 < 2) {
                 console.log("dead");
                 HEALTHLOSS1_WIDTH = 0;
                 HEALTH2_WIDTH = 750;
