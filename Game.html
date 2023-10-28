@@ -111,10 +111,10 @@
                 colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
                 colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lime');
                 colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, CENTERBOX_HEIGHT, 'grey');
-                colorText('Round', canvas.width / 2.174, canvas.height / 13, '50px Arial', 'white');
-                colorText(round, canvas.width / 2.04, canvas.height / 6.5, '70px Arial', 'white');
-                colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial', 'white');
-                colorText('points: ' + point2, canvas.width / 1.15, canvas.height / 5, '50px Arial', 'white');
+                colorText('Round', canvas.width / 2.205, canvas.height / 13, '50px Arial Black', 'white');
+                colorText(round, canvas.width / 2.05, canvas.height / 6.5, '70px Arial Black', 'white');
+                colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial Black', 'white');
+                colorText('points: ' + point2, canvas.width / 1.182, canvas.height / 5, '50px Arial Black', 'white');
                 colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
                 colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
                 colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
@@ -126,9 +126,9 @@
             } else {
                 gameRun = false;
                 drawImg(winbox, canvas.width / 3.5, canvas.height / 3, 800, 400);
-                colorText(winner + ' wins', canvas.width / 2.36, canvas.height / 2, '50px Arial', 'white');
-                colorText('final score:', canvas.width / 2.14, canvas.height / 1.78, '30px Arial', 'white');
-                colorText(point1 + ' - ' + point2, canvas.width / 2.155, canvas.height / 1.53, '80px Arial', 'white');
+                colorText(winner + ' wins', canvas.width / 2.46, canvas.height / 2, '50px Arial Black', 'gold');
+                colorText('final score:', canvas.width / 2.2, canvas.height / 1.78, '30px Arial Black', 'white');
+                colorText(point1 + ' - ' + point2, canvas.width / 2.2, canvas.height / 1.53, '80px Arial Black', 'white');
                 if (winner == 'Player 1') {
                     colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
                 }
