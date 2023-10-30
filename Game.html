@@ -27,6 +27,8 @@
 
         var player2Xsource = 0;
         var player2Ysource = 0;
+        var player2Wsource = 35;
+        var player2Hsource = 58;
         var player2Xpos = 1400;
         var player2Ypos = 730;
         var player2Xspeed = 12;
@@ -103,6 +105,9 @@
         var winner = '';
         var gameRun = true;
 
+        var framesElapsed = 0;
+        var framesHold = 5;
+
         function mainloop() {
             if (gameRun) {
 
@@ -133,10 +138,13 @@
                 colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
                 colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
 
-                drawSprite(imageAssets.player2, player2Xsource, player2Ysource, 35, 58,
+                drawSprite(imageAssets.player2, player2Xsource, player2Ysource, player2Wsource, player2Hsource,
                     player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT);
+
                 PlayerMove()
                 AttackAppear()
+                spriteAnimate()
+                console.log(framesElapsed);
 
             } else {
                 gameRun = false;
@@ -182,7 +190,7 @@
             imgs = {};
 
             imgs.player2 = new Image();
-            imgs.player2.src = "images/p2idle3.png";
+            imgs.player2.src = "";;
 
             return imgs;
         }
@@ -204,6 +212,26 @@
         //                       on spritesheet  on canvas
         function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+        }
+
+        function spriteAnimate() {
+            framesElapsed++;
+            if (framesElapsed % framesHold === 0) {
+                if (leftKeyPressed | rightKeyPressed) {
+                    
+                    imgs.player2.src = "images/p2run2.png";
+                    player2Xsource += 35
+                    if (player2Xsource == 140) {
+                        player2Xsource = 0
+                    }
+                } else {
+                    imgs.player2.src = "images/p2idle.png";
+                    player2Xsource += 35
+                    if (player2Xsource == 140) {
+                        player2Xsource = 0
+                    }
+                }
+            }
         }
 
         function keyPressed(evt) {
