@@ -196,7 +196,7 @@
             imgs = {};
 
             imgs.player1 = new Image();
-            imgs.player1.src = "images/p1idle2.png";
+            imgs.player1.src = "images/p1idle.png";
 
             imgs.player2 = new Image();
             imgs.player2.src = "images/p2idle.png";
@@ -226,14 +226,24 @@
         function spriteAnimate() {
             framesElapsed++;
             if (framesElapsed % framesHold === 0) {
-                player2Xsource += 35;
-                if (player2Xsource == 140) {
-                    player2Xsource = 0;
+                
+                if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                    imgs.player1.src = "images/p1idle2.png";
+                } else {
+                    imgs.player1.src = "images/p1idle.png";
                 }
-
                 player1Xsource += 39;
                 if (player1Xsource == 312) {
                     player1Xsource = 0;
+                }
+
+
+
+
+
+                player2Xsource += 35;
+                if (player2Xsource == 140) {
+                    player2Xsource = 0;
                 }
             }
         }
@@ -306,7 +316,7 @@
                 ATTACK1_HEIGHT = 100;
 
             } else if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
-                attack1Xpos = player1Xpos - PLAYER1_WIDTH * 0.85;
+                attack1Xpos = player1Xpos - PLAYER1_WIDTH * 1.41;
                 attack1Ypos = player1Ypos;
                 ATTACK1_WIDTH = 170;
                 ATTACK1_HEIGHT = 100;
