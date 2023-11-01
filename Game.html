@@ -18,6 +18,10 @@
             setInterval(mainloop, 1000 / 50);
         }
 
+        var player1Xsource = 0;
+        var player1Ysource = 0;
+        var player1Wsource = 200;
+        var player1Hsource = 200;
         var player1Xpos = 300;
         var player1Ypos = 730;
         var player1Xspeed = 12;
@@ -138,13 +142,14 @@
                 colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
                 colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
 
+                drawSprite(imageAssets.player1, player1Xsource, player1Ysource, player1Wsource, player1Hsource,
+                    player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT);
                 drawSprite(imageAssets.player2, player2Xsource, player2Ysource, player2Wsource, player2Hsource,
                     player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT);
 
                 PlayerMove()
                 AttackAppear()
                 spriteAnimate()
-                console.log(framesElapsed);
 
             } else {
                 gameRun = false;
@@ -308,7 +313,7 @@
             }
 
             if (downKeyPressed && player2Xpos > player1Xpos) {
-                attack2Xpos = player2Xpos - PLAYER2_WIDTH * 0.85;
+                attack2Xpos = player2Xpos - PLAYER2_WIDTH * 1.41;
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
                 ATTACK2_HEIGHT = 100;
@@ -361,7 +366,7 @@
         }
 
         function PlayerMove() {
-            if (dKeyPressed && player1Xpos < canvas.width * .895) {
+            if (dKeyPressed && player1Xpos + PLAYER1_WIDTH < canvas.width) {
                 player1Xpos += player1Xspeed
             }
             if (aKeyPressed && player1Xpos > canvas.width * .001) {
@@ -398,7 +403,7 @@
                 }
             }
 
-            if (rightKeyPressed && player2Xpos < canvas.width * .89) {
+            if (rightKeyPressed && player2Xpos + PLAYER2_WIDTH < canvas.width) {
                 player2Xpos += player2Xspeed
             }
             if (leftKeyPressed && player2Xpos > canvas.width * .001) {
