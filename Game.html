@@ -196,10 +196,10 @@
             imgs = {};
 
             imgs.player1 = new Image();
-            imgs.player1.src = "images/p1idle.png";
+            imgs.player1.src = "";
 
             imgs.player2 = new Image();
-            imgs.player2.src = "images/p2idle.png";
+            imgs.player2.src = "";
 
             return imgs;
         }
@@ -218,7 +218,7 @@
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         }
-        //                       on spritesheet  on canvas
+       
         function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
@@ -226,7 +226,6 @@
         function spriteAnimate() {
             framesElapsed++;
             if (framesElapsed % framesHold === 0) {
-                
                 if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
                     imgs.player1.src = "images/p1idle2.png";
                 } else {
@@ -237,10 +236,11 @@
                     player1Xsource = 0;
                 }
 
-
-
-
-
+                if (player2Xpos < player1Xpos) {
+                    imgs.player2.src = "images/p2idle2.png";
+                } else {
+                    imgs.player2.src = "images/p2idle.png";
+                }
                 player2Xsource += 35;
                 if (player2Xsource == 140) {
                     player2Xsource = 0;
