@@ -33,7 +33,7 @@
         var player2Ypos = 730;
         var player2Xspeed = 12;
         var player2Yspeed = 5;
-        const PLAYER2_WIDTH = 100;
+        const PLAYER2_WIDTH = 120;
         const PLAYER2_HEIGHT = 200;
 
         var attack1Xpos = '';
@@ -106,17 +106,17 @@
         var gameRun = true;
 
         var framesElapsed = 0;
-        var framesHold = 5;
+        var framesHold = 4;
 
         function mainloop() {
             if (gameRun) {
-
                 drawImg(background, 0, 0, canvas.width, canvas.height);
                 colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'lime');
                 colorRect(healthloss1Xpos, healthloss1Ypos, HEALTHLOSS1_WIDTH, HEALTHLOSS1_HEIGHT, 'red');
                 colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
                 colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lime');
                 colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, CENTERBOX_HEIGHT, 'grey');
+                
                 colorText('Round', canvas.width / 2.205, canvas.height / 13, '50px Arial Black', 'white');
                 colorText(round, canvas.width / 2.05, canvas.height / 6.5, '70px Arial Black', 'white');
                 colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial Black', 'white');
@@ -184,13 +184,16 @@
                 var background2 = new Image();
                 background.src = "images/bg3.png";
             }
+
         }
 
         function loadImgAssets() {
             imgs = {};
 
+            
+
             imgs.player2 = new Image();
-            imgs.player2.src = "";;
+            imgs.player2.src = "images/p2idle.png";
 
             return imgs;
         }
@@ -217,19 +220,9 @@
         function spriteAnimate() {
             framesElapsed++;
             if (framesElapsed % framesHold === 0) {
-                if (leftKeyPressed | rightKeyPressed) {
-                    
-                    imgs.player2.src = "images/p2run2.png";
-                    player2Xsource += 35
-                    if (player2Xsource == 140) {
-                        player2Xsource = 0
-                    }
-                } else {
-                    imgs.player2.src = "images/p2idle.png";
-                    player2Xsource += 35
-                    if (player2Xsource == 140) {
-                        player2Xsource = 0
-                    }
+                player2Xsource += 35;
+                if (player2Xsource == 140) {
+                    player2Xsource = 0;
                 }
             }
         }
