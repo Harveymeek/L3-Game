@@ -18,19 +18,26 @@
             setInterval(mainloop, 1000 / 50);
         }
 
+        var player1Xsource = 0;
+        var player1Ysource = 0;
+        var player1Wsource = 200;
+        var player1Hsource = 200;
         var player1Xpos = 300;
         var player1Ypos = 730;
         var player1Xspeed = 12;
         var player1Yspeed = 5;
-        const PLAYER1_SIZE = 200;
         const PLAYER1_WIDTH = 200;
         const PLAYER1_HEIGHT = 200;
 
+        var player2Xsource = 0;
+        var player2Ysource = 0;
+        var player2Wsource = 35;
+        var player2Hsource = 58;
         var player2Xpos = 1400;
         var player2Ypos = 730;
         var player2Xspeed = 12;
         var player2Yspeed = 5;
-        const PLAYER2_WIDTH = 200;
+        const PLAYER2_WIDTH = 120;
         const PLAYER2_HEIGHT = 200;
 
         var attack1Xpos = '';
@@ -91,43 +98,86 @@
         var background = new Image();
         background.src = "images/bg1.png";
 
+        var winbox = new Image();
+        winbox.src = "images/winbox.png";
+
         var round = 1;
 
         var point1 = 0;
         var point2 = 0;
 
+        var winner = '';
         var gameRun = true;
+
+        var framesElapsed = 0;
+        var framesHold = 4;
 
         function mainloop() {
             if (gameRun) {
-
                 drawImg(background, 0, 0, canvas.width, canvas.height);
-                colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
-                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
-                colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
-                colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
+                colorRect(0, 0, canvas.width, canvas.height, '255 255 255');
                 colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'lime');
                 colorRect(healthloss1Xpos, healthloss1Ypos, HEALTHLOSS1_WIDTH, HEALTHLOSS1_HEIGHT, 'red');
                 colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
                 colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lime');
                 colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, CENTERBOX_HEIGHT, 'grey');
-                colorText('Round', canvas.width / 2.174, canvas.height / 13, '50px Arial',
-                    'white');
-                colorText(round, canvas.width / 2.04, canvas.height / 6.5, '70px Arial', 'white');
-                colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial', 'white');
-                colorText('points: ' + point2, canvas.width / 1.15, canvas.height / 5, '50px Arial', 'white');
+                
+                colorText('Round', canvas.width / 2.205, canvas.height / 13, '50px Arial Black', 'white');
+                colorText(round, canvas.width / 2.05, canvas.height / 6.5, '70px Arial Black', 'white');
+                colorText('points: ' + point1, health1Xpos, canvas.height / 5, '50px Arial Black', 'white');
+                colorText('points: ' + point2, canvas.width / 1.182, canvas.height / 5, '50px Arial Black', 'white');
+
+                colorRect(health1Xpos, health1Ypos, 7, 75, 'white');
+                colorRect(health1Xpos, health1Ypos, 750, 7, 'white');
+                colorRect(health1Xpos, health1Ypos + HEALTH1_HEIGHT - 7, 750, 7, 'white');
+                colorRect(health2Xpos, health2Ypos, 750, 7, 'white');
+                colorRect(health2Xpos, health2Ypos + HEALTH2_HEIGHT - 7, 750, 7, 'white');
+                colorRect(health2Xpos + HEALTHLOSS2_WIDTH - 7, health1Ypos, 7, 75, 'white');
+                colorRect(centerboxXpos, centerboxYpos, 7, CENTERBOX_HEIGHT, 'white');
+                colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, 7, 'white');
+                colorRect(centerboxXpos + CENTERBOX_WIDTH - 7, centerboxYpos, 7, CENTERBOX_HEIGHT, 'white');
+                colorRect(centerboxXpos, centerboxYpos + CENTERBOX_HEIGHT - 7, CENTERBOX_WIDTH, 7, 'white');
+
+                colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
+                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
+                colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
+                colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
+
+                drawSprite(imageAssets.player2, player2Xsource, player2Ysource, player2Wsource, player2Hsource,
+                    player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT);
+
                 PlayerMove()
                 AttackAppear()
+                spriteAnimate()
+                console.log(framesElapsed);
 
             } else {
                 gameRun = false;
-                colorRect(0, 0, canvas.width, canvas.height, 'black');
+                drawImg(winbox, canvas.width / 3.5, canvas.height / 3, 800, 400);
+                colorText(winner + ' wins', canvas.width / 2.46, canvas.height / 2, '50px Arial Black', 'gold');
+                colorText('final score:', canvas.width / 2.2, canvas.height / 1.78, '30px Arial Black', 'white');
+                colorText(point1 + ' - ' + point2, canvas.width / 2.2, canvas.height / 1.53, '80px Arial Black',
+                    'white');
+                if (winner == 'Player 1') {
+                    colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
+                    colorRect(health2Xpos, health2Ypos, 750, 7, 'white');
+                    colorRect(health2Xpos, health2Ypos + HEALTH2_HEIGHT - 7, 750, 7, 'white');
+                    colorRect(health2Xpos + HEALTHLOSS2_WIDTH - 7, health1Ypos, 7, 75, 'white');
+                }
+                if (winner == 'Player 2') {
+                    colorRect(health1Xpos, health1Ypos, HEALTH1_WIDTH, HEALTH1_HEIGHT, 'red');
+                    colorRect(health1Xpos, health1Ypos, 7, 75, 'white');
+                    colorRect(health1Xpos, health1Ypos, 750, 7, 'white');
+                    colorRect(health1Xpos, health1Ypos + HEALTH1_HEIGHT - 7, 750, 7, 'white');
+                }
             }
 
             if (point1 == 2) {
+                winner = 'Player 1'
                 gameRun = false;
             }
             if (point2 == 2) {
+                winner = 'Player 2'
                 gameRun = false;
             }
 
@@ -139,10 +189,18 @@
                 var background2 = new Image();
                 background.src = "images/bg3.png";
             }
+
         }
 
         function loadImgAssets() {
             imgs = {};
+
+            imgs.player1 = new Image();
+            imgs.player1.src = "images/p1idle.png";
+
+            imgs.player2 = new Image();
+            imgs.player2.src = "images/p2idle.png";
+
             return imgs;
         }
 
@@ -160,6 +218,20 @@
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         }
+        //                       on spritesheet  on canvas
+        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+            canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+        }
+
+        function spriteAnimate() {
+            framesElapsed++;
+            if (framesElapsed % framesHold === 0) {
+                player2Xsource += 35;
+                if (player2Xsource == 140) {
+                    player2Xsource = 0;
+                }
+            }
+        }
 
         function keyPressed(evt) {
             if (evt.keyCode == D_KEY) {
@@ -173,6 +245,9 @@
             }
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPressed = true;
+                setTimeout(() => {
+                    spaceKeyPressed = false
+                }, 100)
             }
             if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = true;
@@ -185,6 +260,9 @@
             }
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = true;
+                setTimeout(() => {
+                    downKeyPressed = false
+                }, 100)
             }
         }
 
@@ -216,22 +294,36 @@
         }
 
         function AttackAppear() {
-            if (spaceKeyPressed) {
+            if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH < player2Xpos + PLAYER2_WIDTH) {
                 attack1Xpos = player1Xpos + PLAYER1_WIDTH;
                 attack1Ypos = player1Ypos;
                 ATTACK1_WIDTH = 170;
                 ATTACK1_HEIGHT = 100;
+
+            } else if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                attack1Xpos = player1Xpos - PLAYER1_WIDTH * 0.85;
+                attack1Ypos = player1Ypos;
+                ATTACK1_WIDTH = 170;
+                ATTACK1_HEIGHT = 100;
+
             } else {
                 ATTACK1_WIDTH = 0;
                 ATTACK1_HEIGHT = 0;
                 attack1Ypos = canvas.height * 0.01;
             }
 
-            if (downKeyPressed) {
+            if (downKeyPressed && player2Xpos > player1Xpos) {
                 attack2Xpos = player2Xpos - PLAYER2_WIDTH * 0.85;
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
                 ATTACK2_HEIGHT = 100;
+
+            } else if (downKeyPressed && player2Xpos < player1Xpos) {
+                attack2Xpos = player2Xpos + PLAYER2_WIDTH;
+                attack2Ypos = player2Ypos;
+                ATTACK2_WIDTH = 170;
+                ATTACK2_HEIGHT = 100;
+
             } else {
                 ATTACK2_WIDTH = 0;
                 ATTACK2_HEIGHT = 0;
@@ -243,9 +335,9 @@
                 player2Ypos < attack1Ypos + ATTACK1_HEIGHT &&
                 player2Ypos + PLAYER2_HEIGHT > attack1Ypos && HEALTH2_WIDTH > 0) { // when sword hits boss
                 console.log("hit");
-                HEALTH2_WIDTH--;
+                HEALTH2_WIDTH -= 10
             }
-            if (HEALTH2_WIDTH <= 0) {
+            if (HEALTH2_WIDTH <= 0 && point1 < 2) {
                 console.log("dead");
                 HEALTH2_WIDTH = 750;
                 HEALTHLOSS1_WIDTH = 0;
@@ -260,9 +352,9 @@
                 player1Ypos < attack2Ypos + ATTACK2_HEIGHT &&
                 player1Ypos + PLAYER1_HEIGHT > attack2Ypos && HEALTHLOSS1_WIDTH < 750) { // when sword hits boss
                 console.log("hit");
-                HEALTHLOSS1_WIDTH++
+                HEALTHLOSS1_WIDTH += 10
             }
-            if (HEALTHLOSS1_WIDTH >= 750) {
+            if (HEALTHLOSS1_WIDTH >= 750 && point2 < 2) {
                 console.log("dead");
                 HEALTHLOSS1_WIDTH = 0;
                 HEALTH2_WIDTH = 750;
@@ -281,11 +373,11 @@
                 player1Xpos -= player1Xspeed
             }
             player1Ypos += player1Yspeed;
-                player1Yspeed += 3;
-                if (player1Ypos <= 0) {
-                    player1Ypos = 0;
-                    player1Yspeed = 0.5;
-                }
+            player1Yspeed += 3;
+            if (player1Ypos <= 0) {
+                player1Ypos = 0;
+                player1Yspeed = 0.5;
+            }
             if (round == 1) {
                 if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .966) {
                     player1Yspeed = -50;
@@ -311,7 +403,42 @@
                 }
             }
 
-            
+            if (rightKeyPressed && player2Xpos < canvas.width * .89) {
+                player2Xpos += player2Xspeed
+            }
+            if (leftKeyPressed && player2Xpos > canvas.width * .001) {
+                player2Xpos -= player2Xspeed
+            }
+            player2Ypos += player2Yspeed;
+            player2Yspeed += 3;
+            if (player2Ypos <= 0) {
+                player2Ypos = 0;
+                player2Yspeed = 0.5;
+            }
+            if (round == 1) {
+                if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .966) {
+                    player2Yspeed = -50;
+                }
+                if (player2Ypos + PLAYER2_HEIGHT >= canvas.height * .966) {
+                    player2Ypos = canvas.height * .966 - PLAYER2_HEIGHT;
+                }
+            }
+            if (round == 2) {
+                if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .893) {
+                    player2Yspeed = -50;
+                }
+                if (player2Ypos + PLAYER2_HEIGHT >= canvas.height * .893) {
+                    player2Ypos = canvas.height * .893 - PLAYER2_HEIGHT;
+                }
+            }
+            if (round == 3) {
+                if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .78) {
+                    player2Yspeed = -50;
+                }
+                if (player2Ypos + PLAYER2_HEIGHT >= canvas.height * .78) {
+                    player2Ypos = canvas.height * .78 - PLAYER2_HEIGHT;
+                }
+            }
         }
     </script>
 </body>
