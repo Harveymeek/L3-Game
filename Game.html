@@ -26,7 +26,7 @@
         var player1Ypos = 730;
         var player1Xspeed = 12;
         var player1Yspeed = 5;
-        const PLAYER1_WIDTH = 120;
+        var PLAYER1_WIDTH = 120;
         const PLAYER1_HEIGHT = 200;
 
         var player2Xsource = 0;
@@ -37,7 +37,7 @@
         var player2Ypos = 730;
         var player2Xspeed = 12;
         var player2Yspeed = 5;
-        const PLAYER2_WIDTH = 120;
+        var PLAYER2_WIDTH = 120;
         const PLAYER2_HEIGHT = 200;
 
         var attack1Xpos = '';
@@ -101,6 +101,12 @@
         var winbox = new Image();
         winbox.src = "images/winbox.png";
 
+        var point1icon = new Image();
+        point1icon.src = "images/points0.png";
+
+        var point2icon = new Image();
+        point2icon.src = "images/points0.png";
+
         var round = 1;
 
         var point1 = 0;
@@ -122,6 +128,8 @@
                 colorRect(healthloss2Xpos, healthloss2Ypos, HEALTHLOSS2_WIDTH, HEALTHLOSS2_HEIGHT, 'red');
                 colorRect(health2Xpos, health2Ypos, HEALTH2_WIDTH, HEALTH2_HEIGHT, 'lime');
                 colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, CENTERBOX_HEIGHT, 'grey');
+                drawImg(point1icon, centerboxXpos - 110, canvas.height / 7, 100, 50);
+                drawImg(point2icon, centerboxXpos + CENTERBOX_WIDTH + 10, canvas.height / 7, 100, 50);
 
                 colorText('Round', canvas.width / 2.205, canvas.height / 13, '50px Arial Black', 'white');
                 colorText(round, canvas.width / 2.05, canvas.height / 6.5, '70px Arial Black', 'white');
