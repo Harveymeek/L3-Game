@@ -191,6 +191,10 @@
                 gameRun = false;
             }
 
+            if (point1 == 1) {
+                point1icon.src = "images/p1points1.png";
+            }
+
             if (round == 2) {
                 var background2 = new Image();
                 background.src = "images/bg2.png";
@@ -228,7 +232,7 @@
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         }
-       
+
         function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
