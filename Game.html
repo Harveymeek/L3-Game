@@ -28,6 +28,7 @@
         var player1Yspeed = 5;
         var PLAYER1_WIDTH = 120;
         const PLAYER1_HEIGHT = 200;
+        //player 1 variables
 
         var player2Xsource = 0;
         var player2Ysource = 0;
@@ -39,61 +40,73 @@
         var player2Yspeed = 5;
         var PLAYER2_WIDTH = 120;
         const PLAYER2_HEIGHT = 200;
+        //player 2 variables
 
         var attack1Xpos = '';
         var attack1Ypos = '';
         var ATTACK1_WIDTH = 170;
         var ATTACK1_HEIGHT = 100;
+        //player 1 attack hitbox variables
 
         var attack2Xpos = '';
         var attack2Ypos = '';
         var ATTACK2_WIDTH = 170;
         var ATTACK2_HEIGHT = 100;
+        //player 2 attack hitbox variables
 
         var health1Xpos = 50;
         var health1Ypos = 50;
         var HEALTH1_WIDTH = 750;
         var HEALTH1_HEIGHT = 75;
+        // player 1 health variables
 
         var healthloss1Xpos = 50;
         var healthloss1Ypos = 50;
         var HEALTHLOSS1_WIDTH = 0;
         var HEALTHLOSS1_HEIGHT = 75;
+        // player 1 healthloss variables
 
         var health2Xpos = 1050;
         var health2Ypos = 50;
         var HEALTH2_WIDTH = 750;
         var HEALTH2_HEIGHT = 75;
+        // player 2 health variables
 
         var healthloss2Xpos = 1050;
         var healthloss2Ypos = 50;
         var HEALTHLOSS2_WIDTH = 750;
         var HEALTHLOSS2_HEIGHT = 75;
+        // player 2 healthloss variables
 
         var centerboxXpos = health1Xpos + HEALTH1_WIDTH;
         var centerboxYpos = 14;
         var CENTERBOX_WIDTH = 250;
         var CENTERBOX_HEIGHT = 150;
+        // canter display box variables
 
         const D_KEY = 68;
         const A_KEY = 65;
         const W_KEY = 87;
         const SPACE_KEY = 32;
+        // constants for key codes for player 1 controls
 
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
         const UP_KEY = 38;
         const DOWN_KEY = 40;
+        // constants for key codes for player 2 controls
 
         var dKeyPressed = false;
         var aKeyPressed = false;
         var wKeyPressed = false;
         var spaceKeyPressed = false;
+        // key press variables for player 1 controls
 
         var rightKeyPressed = false;
         var leftKeyPressed = false;
         var upKeyPressed = false;
         var downKeyPressed = false;
+        // key press variables for player 2 controls
 
         var background = new Image();
         background.src = "images/bg1.png";
@@ -112,23 +125,27 @@
 
         var attack2 = new Image();
         attack2.src = "images/p2attackhit.png";
+        // image variables for background/point icons/attacks
 
         var round = 1;
 
         var point1 = 0;
         var point2 = 0;
+        // starting points for player 1 and player 2
 
         var winner = '';
         var gameRun = true;
 
         var framesElapsed = 0;
+        //value that is constantly increasing
         var framesHold = 4;
+        //the value that framesElapsed must increase to before each frame of sprite animation changes
 
         alert(
             'HOW TO PLAY:    player 1 starts on the left, player2 starts on the right. player 1 uses the A and D keys to move left and right, W key to jump, and the spacebar to attack. player 2 uses the leftarrow and rightarrow keys to move left and right, the uparrow key to jump, and the downarrow key to attack. When a player gets the other players health down to 0 they earn a point and the next round starts. the first player to earn 2 points will win the game. There can be up to 3 rounds. press Ctrl + R to restart the game.'
         )
 
-        function mainloop() {
+        function mainloop() { // makes the game run, constantly draws and updates changes to imgs, text, sprites, rectangles on canvas. Also calls functions
             if (gameRun) {
                 drawImg(background, 0, 0, canvas.width, canvas.height);
                 canvasContext.fillStyle = 'rgba(255, 255, 255, 0.1)'
@@ -157,11 +174,6 @@
                 colorRect(centerboxXpos, centerboxYpos, CENTERBOX_WIDTH, 7, 'white');
                 colorRect(centerboxXpos + CENTERBOX_WIDTH - 7, centerboxYpos, 7, CENTERBOX_HEIGHT, 'white');
                 colorRect(centerboxXpos, centerboxYpos + CENTERBOX_HEIGHT - 7, CENTERBOX_WIDTH, 7, 'white');
-
-                //colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
-                //colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
-                //colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
-                //colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
 
                 drawSprite(imageAssets.player1, player1Xsource, player1Ysource, player1Wsource, player1Hsource,
                     player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT);
@@ -197,36 +209,36 @@
                 }
             }
 
-            if (point1 == 2) {
+            if (point1 == 2) { // makes player 1 the winner when they gain 2 points and makes gamerun false
                 winner = 'Player 1'
                 point1icon.src = "images/points2.png";
                 gameRun = false;
             }
-            if (point2 == 2) {
+            if (point2 == 2) { // makes player 2 the winner when they gain 2 points and makes gamerun false
                 winner = 'Player 2'
                 point2icon.src = "images/points2.png";
                 gameRun = false;
             }
 
-            if (point1 == 1) {
+            if (point1 == 1) { // changes the img for player 1 points icon when they gain a point
                 point1icon.src = "images/p1points1.png";
             }
-            if (point2 == 1) {
+            if (point2 == 1) { // changes the img for player 2 points icon when they gain a point
                 point2icon.src = "images/p2points1.png";
             }
 
-            if (round == 2) {
+            if (round == 2) { // changes the background when on round 2
                 var background2 = new Image();
                 background.src = "images/bg2.png";
             }
-            if (round == 3) {
+            if (round == 3) { // changes the background when on round 3
                 var background2 = new Image();
                 background.src = "images/bg3.png";
             }
 
         }
 
-        function loadImgAssets() {
+        function loadImgAssets() { // loads player sprites from src
             imgs = {};
 
             imgs.player1 = new Image();
@@ -238,30 +250,30 @@
             return imgs;
         }
 
-        function colorRect(x, y, w, h, c) {
+        function colorRect(x, y, w, h, c) { // establishes parameters for drawing rectangles
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         }
 
-        function colorText(msg, x, y, f, c) {
+        function colorText(msg, x, y, f, c) { // establishes parameters for text on the canvas
             canvasContext.font = f;
             canvasContext.fillStyle = c;
             canvasContext.fillText(msg, x, y);
         }
 
-        function drawImg(src, x, y, w, h) {
+        function drawImg(src, x, y, w, h) { // establishes parameters for drawing images
             canvasContext.drawImage(src, x, y, w, h);
         }
 
-        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) { // establishes parameters for spritesheet
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         }
 
-        function spriteAnimate() {
-            framesElapsed++;
-            if (framesElapsed % framesHold === 0) {
+        function spriteAnimate() { // for animating and changing player spritesheets
+            framesElapsed++; // value that constantly increments
+            if (framesElapsed % framesHold === 0) { // when the value is divisible by a hold value to equal 0, activate the following 
                 if (aKeyPressed || dKeyPressed) {
-                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) { // makes player 1 run animation turn around when player 1 goes past player 2
                         imgs.player1.src = "images/p1run2.png";
                     } else {
                         imgs.player1.src = "images/p1run.png";
@@ -270,12 +282,12 @@
                     player1Ysource = -4;
                     player1Wsource = 48;
                     player1Hsource = 53;
-                    player1Xsource += 48;
-                    if (player1Xsource == 384) {
+                    player1Xsource += 48; // makes player 1 run sprite sheet animate
+                    if (player1Xsource == 384) { 
                         player1Xsource = 0;
                     }
                 } else if (spaceKeyPressed) {
-                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) { // makes player 1 attack sprite turn around when player 1 goes past player 2
                         imgs.player1.src = "images/p1attack2.png";
                     } else {
                         imgs.player1.src = "images/p1attack.png";
@@ -286,7 +298,7 @@
                     player1Hsource = 75;
                     player1Xsource = 0;
                 } else {
-                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) { // makes player 1 idle sprite turn around when player 1 goes past player 2
                         imgs.player1.src = "images/p1idle2.png";
                     } else {
                         imgs.player1.src = "images/p1idle.png";
@@ -299,7 +311,7 @@
                 }
 
                 if (leftKeyPressed || rightKeyPressed) {
-                    if (player2Xpos < player1Xpos) {
+                    if (player2Xpos < player1Xpos) { // makes player 2 run animation turn around when player 2 goes past player 1
                         imgs.player2.src = "images/p2run2.png";
                     } else {
                         imgs.player2.src = "images/p2run.png";
@@ -307,12 +319,12 @@
                     PLAYER2_WIDTH = 150;
                     player2Ysource = -7;
                     player2Wsource = 44.5;
-                    player2Xsource += 44.5;
-                    if (player2Xsource == 356) {
+                    player2Xsource += 44.5; // makes player 2 run sprite sheet animate
+                    if (player2Xsource == 356) { 
                         player2Xsource = 0;
                     }
                 } else if (downKeyPressed) {
-                    if (player2Xpos < player1Xpos) {
+                    if (player2Xpos < player1Xpos) { // makes player 2 attack sprite turn around when player 2 goes past player 1
                         imgs.player2.src = "images/p2attack2.png";
                     } else {
                         imgs.player2.src = "images/p2attack.png";
@@ -322,7 +334,7 @@
                     player2Wsource = 37;
                     player2Xsource = 0;
                 } else {
-                    if (player2Xpos < player1Xpos) {
+                    if (player2Xpos < player1Xpos) { // makes player 2 idle sprite turn around when player 2 goes past player 1
                         imgs.player2.src = "images/p2idle2.png";
                     } else {
                         imgs.player2.src = "images/p2idle.png";
@@ -335,7 +347,7 @@
             }
         }
 
-        function keyPressed(evt) {
+        function keyPressed(evt) { // get key press events for players movement and attacking
             if (evt.keyCode == D_KEY) {
                 dKeyPressed = true;
             }
@@ -368,7 +380,7 @@
             }
         }
 
-        function keyReleased(evt) {
+        function keyReleased(evt) { // get key released events for players movement and attacking
             if (evt.keyCode == D_KEY) {
                 dKeyPressed = false;
             }
@@ -395,13 +407,14 @@
             }
         }
 
-        function AttackAppear() {
+        function AttackAppear() { //makes the attacks appear next to players
             if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH < player2Xpos + PLAYER2_WIDTH) {
                 attack1.src = "images/p1attackhit.png";
                 attack1Xpos = player1Xpos + PLAYER1_WIDTH;
                 attack1Ypos = player1Ypos;
                 ATTACK1_WIDTH = 170;
                 ATTACK1_HEIGHT = 220;
+                // variables for sword when space key is pressed
 
             } else if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
                 attack1.src = "images/p1attackhit2.png";
@@ -409,11 +422,13 @@
                 attack1Ypos = player1Ypos;
                 ATTACK1_WIDTH = 170;
                 ATTACK1_HEIGHT = 200;
+                // variables for sword when space key is pressed
 
             } else {
                 ATTACK1_WIDTH = 0;
                 ATTACK1_HEIGHT = 0;
                 attack1Ypos = canvas.height * 0.01;
+                // variables for sword when space key is released
             }
 
             if (downKeyPressed && player2Xpos > player1Xpos) {
@@ -422,6 +437,7 @@
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
                 ATTACK2_HEIGHT = 200;
+                // variables for sword when downarrow key is pressed
 
             } else if (downKeyPressed && player2Xpos < player1Xpos) {
                 attack2.src = "images/p2attackhit2.png";
@@ -429,21 +445,23 @@
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
                 ATTACK2_HEIGHT = 200;
+                // variables for sword when downarrow key is pressed
 
             } else {
                 ATTACK2_WIDTH = 0;
                 ATTACK2_HEIGHT = 0;
                 attack2Ypos = canvas.height * 0.01;
+                // variables for sword when downarrow key is released
             }
 
             if (player2Xpos < attack1Xpos + ATTACK1_WIDTH &&
                 player2Xpos + PLAYER2_WIDTH > attack1Xpos &&
                 player2Ypos < attack1Ypos + ATTACK1_HEIGHT &&
-                player2Ypos + PLAYER2_HEIGHT > attack1Ypos && HEALTH2_WIDTH > 0) { // when sword hits boss
+                player2Ypos + PLAYER2_HEIGHT > attack1Ypos && HEALTH2_WIDTH > 0) { // when player 1 attack hits player 2
                 console.log("hit");
                 HEALTH2_WIDTH -= 10
             }
-            if (HEALTH2_WIDTH <= 0 && point1 < 2) {
+            if (HEALTH2_WIDTH <= 0 && point1 < 2) { // resets health, resets player positions, increases points and round when player 2 health is reduced to 0
                 console.log("dead");
                 HEALTH2_WIDTH = 750;
                 HEALTHLOSS1_WIDTH = 0;
@@ -456,11 +474,11 @@
             if (player1Xpos < attack2Xpos + ATTACK2_WIDTH &&
                 player1Xpos + PLAYER1_WIDTH > attack2Xpos &&
                 player1Ypos < attack2Ypos + ATTACK2_HEIGHT &&
-                player1Ypos + PLAYER1_HEIGHT > attack2Ypos && HEALTHLOSS1_WIDTH < 750) { // when sword hits boss
+                player1Ypos + PLAYER1_HEIGHT > attack2Ypos && HEALTHLOSS1_WIDTH < 750) { // when player 2 attack hits player 1
                 console.log("hit");
                 HEALTHLOSS1_WIDTH += 10
             }
-            if (HEALTHLOSS1_WIDTH >= 750 && point2 < 2) {
+            if (HEALTHLOSS1_WIDTH >= 750 && point2 < 2) { // resets health, resets player positions, increases points and round when player 1 health is reduced to 0
                 console.log("dead");
                 HEALTHLOSS1_WIDTH = 0;
                 HEALTH2_WIDTH = 750;
@@ -471,20 +489,20 @@
             }
         }
 
-        function PlayerMove() {
+        function PlayerMove() { // allows the players to move a certain direction on the canvas by key presses and creates boundaries for the players movement
             if (dKeyPressed && player1Xpos + PLAYER1_WIDTH < canvas.width) {
                 player1Xpos += player1Xspeed
             }
             if (aKeyPressed && player1Xpos > 0) {
                 player1Xpos -= player1Xspeed
             }
-            player1Ypos += player1Yspeed;
+            player1Ypos += player1Yspeed; // creates jump effect
             player1Yspeed += 3;
             if (player1Ypos <= 0) {
                 player1Ypos = 0;
                 player1Yspeed = 0.5;
             }
-            if (round == 1) {
+            if (round == 1) { // changes Ypos of ground boundary for standing and required Ypos for jumping
                 if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .966) {
                     player1Yspeed = -50;
                 }
@@ -492,7 +510,7 @@
                     player1Ypos = canvas.height * .966 - PLAYER1_HEIGHT;
                 }
             }
-            if (round == 2) {
+            if (round == 2) { // changes Ypos of ground boundary for standing and required Ypos for jumping
                 if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .893) {
                     player1Yspeed = -50;
                 }
@@ -500,7 +518,7 @@
                     player1Ypos = canvas.height * .893 - PLAYER1_HEIGHT;
                 }
             }
-            if (round == 3) {
+            if (round == 3) { // changes Ypos of ground boundary for standing and required Ypos for jumping
                 if (wKeyPressed && player1Ypos + PLAYER1_HEIGHT > canvas.height * .78) {
                     player1Yspeed = -50;
                 }
@@ -515,13 +533,13 @@
             if (leftKeyPressed && player2Xpos > 0) {
                 player2Xpos -= player2Xspeed
             }
-            player2Ypos += player2Yspeed;
+            player2Ypos += player2Yspeed; // creates jump effect
             player2Yspeed += 3;
             if (player2Ypos <= 0) {
                 player2Ypos = 0;
                 player2Yspeed = 0.5;
             }
-            if (round == 1) {
+            if (round == 1) { // changes Ypos of ground boundary for standing and required Ypos for jumping
                 if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .966) {
                     player2Yspeed = -50;
                 }
@@ -529,7 +547,7 @@
                     player2Ypos = canvas.height * .966 - PLAYER2_HEIGHT;
                 }
             }
-            if (round == 2) {
+            if (round == 2) { // changes Ypos of ground boundary for standing and required Ypos for jumping
                 if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .893) {
                     player2Yspeed = -50;
                 }
@@ -537,7 +555,7 @@
                     player2Ypos = canvas.height * .893 - PLAYER2_HEIGHT;
                 }
             }
-            if (round == 3) {
+            if (round == 3) { // changes Ypos of ground boundary for standing and required Ypos for jumping
                 if (upKeyPressed && player2Ypos + PLAYER2_HEIGHT > canvas.height * .78) {
                     player2Yspeed = -50;
                 }
