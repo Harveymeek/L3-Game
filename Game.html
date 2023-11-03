@@ -110,7 +110,6 @@
         var attack1 = new Image();
         attack1.src = "images/p1attackhit.png";
 
-        
         var attack2 = new Image();
         attack2.src = "images/p2attackhit.png";
         
@@ -277,9 +276,9 @@
                         imgs.player1.src = "images/p1attack.png";
                     }
                     PLAYER1_WIDTH = 120;
-                    player1Ysource = 15;
+                    player1Ysource = 0.5;
                     player1Wsource = 51;
-                    player1Hsource = 60;
+                    player1Hsource = 75;
                     player1Xsource = 0;
                 } else {
                     if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
@@ -393,16 +392,18 @@
 
         function AttackAppear() {
             if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH < player2Xpos + PLAYER2_WIDTH) {
+                attack1.src = "images/p1attackhit.png";
                 attack1Xpos = player1Xpos + PLAYER1_WIDTH;
                 attack1Ypos = player1Ypos;
                 ATTACK1_WIDTH = 170;
-                ATTACK1_HEIGHT = 100;
+                ATTACK1_HEIGHT = 220;
 
             } else if (spaceKeyPressed && player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                attack1.src = "images/p1attackhit2.png";
                 attack1Xpos = player1Xpos - PLAYER1_WIDTH * 1.41;
                 attack1Ypos = player1Ypos;
                 ATTACK1_WIDTH = 170;
-                ATTACK1_HEIGHT = 100;
+                ATTACK1_HEIGHT = 200;
 
             } else {
                 ATTACK1_WIDTH = 0;
