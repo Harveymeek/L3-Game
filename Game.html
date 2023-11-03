@@ -152,9 +152,9 @@
                 colorRect(centerboxXpos, centerboxYpos + CENTERBOX_HEIGHT - 7, CENTERBOX_WIDTH, 7, 'white');
 
                 //colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
-                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
+                //colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
                 colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
-                colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
+                //colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
 
                 drawSprite(imageAssets.player1, player1Xsource, player1Ysource, player1Wsource, player1Hsource,
                     player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT);
@@ -394,16 +394,18 @@
             }
 
             if (downKeyPressed && player2Xpos > player1Xpos) {
+                attack2.src = "images/p2attackhit.png";
                 attack2Xpos = player2Xpos - PLAYER2_WIDTH * 1.41;
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
-                ATTACK2_HEIGHT = 100;
+                ATTACK2_HEIGHT = 200;
 
             } else if (downKeyPressed && player2Xpos < player1Xpos) {
+                attack2.src = "images/p2attackhit2.png";
                 attack2Xpos = player2Xpos + PLAYER2_WIDTH;
                 attack2Ypos = player2Ypos;
                 ATTACK2_WIDTH = 170;
-                ATTACK2_HEIGHT = 100;
+                ATTACK2_HEIGHT = 200;
 
             } else {
                 ATTACK2_WIDTH = 0;
