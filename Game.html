@@ -107,9 +107,13 @@
         var point2icon = new Image();
         point2icon.src = "images/points0.png";
 
+        var attack1 = new Image();
+        attack1.src = "images/p1attackhit.png";
+
+        
         var attack2 = new Image();
         attack2.src = "images/p2attackhit.png";
-
+        
         var round = 1;
 
         var point1 = 0;
@@ -161,6 +165,7 @@
                 drawSprite(imageAssets.player2, player2Xsource, player2Ysource, player2Wsource, player2Hsource,
                     player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT);
                 drawImg(attack2, attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT);
+                drawImg(attack1, attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT);
 
                 PlayerMove()
                 AttackAppear()
@@ -265,6 +270,17 @@
                     if (player1Xsource == 384) {
                         player1Xsource = 0;
                     }
+                } else if (spaceKeyPressed) {
+                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                        imgs.player1.src = "images/p1attack2.png";
+                    } else {
+                        imgs.player1.src = "images/p1attack.png";
+                    }
+                    PLAYER1_WIDTH = 120;
+                    player1Ysource = 15;
+                    player1Wsource = 51;
+                    player1Hsource = 60;
+                    player1Xsource = 0;
                 } else {
                     if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
                         imgs.player1.src = "images/p1idle2.png";
@@ -274,6 +290,7 @@
                     PLAYER1_WIDTH = 120;
                     player1Ysource = 0;
                     player1Wsource = 39;
+                    player1Hsource = 53;
                     player1Xsource = 0;
                 }
 
