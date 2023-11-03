@@ -133,6 +133,9 @@
 
                 colorText('Round', canvas.width / 2.205, canvas.height / 13, '50px Arial Black', 'white');
                 colorText(round, canvas.width / 2.05, canvas.height / 6.5, '70px Arial Black', 'white');
+                colorText('PLAYER 1', health1Xpos, health1Ypos - 7, '40px Arial Black', 'white');
+                colorText('PLAYER 2', healthloss2Xpos + HEALTHLOSS2_WIDTH / 1.4, health2Ypos - 7, '40px Arial Black',
+                    'white');
 
                 colorRect(health1Xpos, health1Ypos, 7, 75, 'white');
                 colorRect(health1Xpos, health1Ypos, 750, 7, 'white');
@@ -146,7 +149,7 @@
                 colorRect(centerboxXpos, centerboxYpos + CENTERBOX_HEIGHT - 7, CENTERBOX_WIDTH, 7, 'white');
 
                 //colorRect(player1Xpos, player1Ypos, PLAYER1_WIDTH, PLAYER1_HEIGHT, 'red');
-                //colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
+                colorRect(player2Xpos, player2Ypos, PLAYER2_WIDTH, PLAYER2_HEIGHT, 'blue');
                 colorRect(attack1Xpos, attack1Ypos, ATTACK1_WIDTH, ATTACK1_HEIGHT, 'grey');
                 colorRect(attack2Xpos, attack2Ypos, ATTACK2_WIDTH, ATTACK2_HEIGHT, 'grey');
 
@@ -245,13 +248,28 @@
         function spriteAnimate() {
             framesElapsed++;
             if (framesElapsed % framesHold === 0) {
-                if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
-                    imgs.player1.src = "images/p1idle2.png";
+                if (aKeyPressed || dKeyPressed) {
+                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                        imgs.player1.src = "images/p1run2.png";
+                    } else {
+                        imgs.player1.src = "images/p1run.png";
+                    }
+                    PLAYER1_WIDTH = 150;
+                    player1Ysource = -4;
+                    player1Wsource = 48;
+                    player1Xsource += 48;
+                    if (player1Xsource == 384) {
+                        player1Xsource = 0;
+                    }
                 } else {
-                    imgs.player1.src = "images/p1idle.png";
-                }
-                player1Xsource += 39;
-                if (player1Xsource == 312) {
+                    if (player1Xpos + PLAYER1_WIDTH > player2Xpos + PLAYER2_WIDTH) {
+                        imgs.player1.src = "images/p1idle2.png";
+                    } else {
+                        imgs.player1.src = "images/p1idle.png";
+                    }
+                    PLAYER1_WIDTH = 120;
+                    player1Ysource = 0;
+                    player1Wsource = 39;
                     player1Xsource = 0;
                 }
 
@@ -268,6 +286,16 @@
                     if (player2Xsource == 356) {
                         player2Xsource = 0;
                     }
+                } else if (downKeyPressed) {
+                    if (player2Xpos < player1Xpos) {
+                        imgs.player2.src = "images/p2attack2.png";
+                    } else {
+                        imgs.player2.src = "images/p2attack.png";
+                    }
+                    PLAYER2_WIDTH = 120;
+                    player2Ysource = 4;
+                    player2Wsource = 37;
+                    player2Xsource = 0;
                 } else {
                     if (player2Xpos < player1Xpos) {
                         imgs.player2.src = "images/p2idle2.png";
